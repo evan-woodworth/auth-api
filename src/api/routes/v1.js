@@ -23,33 +23,53 @@ router.put('/:model/:id', handleUpdate);
 router.delete('/:model/:id', handleDelete);
 
 async function handleGetAll(req, res) {
-  let allRecords = await req.model.get();
-  res.status(200).json(allRecords);
+  try {
+    let allRecords = await req.model.get();
+    res.status(200).json(allRecords);
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 async function handleGetOne(req, res) {
-  const id = req.params.id;
-  let theRecord = await req.model.get(id)
-  res.status(200).json(theRecord);
+  try {
+    const id = req.params.id;
+    let theRecord = await req.model.get(id)
+    res.status(200).json(theRecord);
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 async function handleCreate(req, res) {
-  let obj = req.body;
-  let newRecord = await req.model.create(obj);
-  res.status(201).json(newRecord);
+  try {
+    let obj = req.body;
+    let newRecord = await req.model.create(obj);
+    res.status(201).json(newRecord);
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 async function handleUpdate(req, res) {
-  const id = req.params.id;
-  const obj = req.body;
-  let updatedRecord = await req.model.update(id, obj)
-  res.status(200).json(updatedRecord);
+  try {
+    const id = req.params.id;
+    const obj = req.body;
+    let updatedRecord = await req.model.update(id, obj)
+    res.status(200).json(updatedRecord);
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 async function handleDelete(req, res) {
-  let id = req.params.id;
-  let deletedRecord = await req.model.delete(id);
-  res.status(200).json(deletedRecord);
+  try {
+    let id = req.params.id;
+    let deletedRecord = await req.model.delete(id);
+    res.status(200).json(deletedRecord);
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 
