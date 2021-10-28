@@ -6,16 +6,18 @@ const clothesModel = require('./clothes/model.js');
 const foodModel = require('./food/model.js');
 const Collection = require('./data-collection.js');
 
-const DATABASE_CONFIG = process.env.NODE_ENV === 'production' ? {
+const options = process.env.NODE_ENV === 'production' ? {
   dialectOptions: {
-    ssl: true,
-    rejectUnauthorized: false,
-  }
-} : {}
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
+} : {};
 
 const DATABASE_URL = process.env.DATABASE_URL || 'sqlite::memory';
 
-const sequelize = new Sequelize(DATABASE_URL, DATABASE_CONFIG);
+const sequelize = new Sequelize(DATABASE_URL, options);
 const users = userModel(sequelize, DataTypes);
 const food = foodModel(sequelize, DataTypes);
 const clothes = clothesModel(sequelize, DataTypes);
